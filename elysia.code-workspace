@@ -1,0 +1,17 @@
+{
+  "folders": [
+	{
+		"name": "elysia",
+		"path": "elysia"
+	},
+	{
+		"name": "my-frontend",
+		"path": "my-frontend"
+	},
+	{
+		"name": "default",
+		"path": "../src/public/default"
+	}
+],
+  "settings": {}
+}
