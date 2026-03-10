@@ -35,6 +35,15 @@ export default function Item({ t }: { t: Task }) {
         </button>
       </div>
       <p>งาน: {t.title}</p>
+      {t.gps && (
+        <a
+          href={`https://www.google.com/maps?q=${t.gps}`}
+          target="_blank"
+          style={{ fontSize: "11px", color: "blue" }}
+        >
+          📍 ดูในแผนที่
+        </a>
+      )}
       {t.imageName ? (
         <>
           <br />
