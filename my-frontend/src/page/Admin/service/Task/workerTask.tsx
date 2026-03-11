@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import type { ChangeEvent } from "react";
 import { useForm } from "react-hook-form";
 interface IFormInput {
-  gps: string;
+  // gps: string;
   image: FileList;
   workResult: string;
   status: string;
@@ -51,10 +51,10 @@ export default function WorkerTask({ t }: { t: Task }) {
     //   gps: gps,
     //   form: formData,
     // });
-    if (!gps) {
-      alert("กรุณาปักหมุด GPS ก่อนส่งงาน");
-      return;
-    }
+    // if (!gps) {
+    //   alert("กรุณาปักหมุด GPS ก่อนส่งงาน");
+    //   return;
+    // }
     if (!form.image) {
       alert("กรุณาถ่ายภาพประกอบก่อนส่งงาน");
       return;
@@ -122,13 +122,13 @@ export default function WorkerTask({ t }: { t: Task }) {
           marginTop: "10px",
         }}
       >
-        <input
+        {/* <input
           type="button"
           onClick={setLocation}
           value={`📍 ${gps ? "อัปเดตพิกัดแล้ว" : "ปักหมุด GPS"}`}
           className="btn-primary"
           style={{ background: "#f0f0f0", color: "#333", fontSize: "12px" }}
-        />
+        /> */}
 
         <label
           className="btn-primary"
@@ -206,16 +206,17 @@ export default function WorkerTask({ t }: { t: Task }) {
           // value={workResult}
           // onChange={(e) => setWorkResult(e.target.value)}
         ></textarea>
-        {!gps && (
+        {/* {!gps && (
           <p style={{ color: "red", fontSize: "12px" }}>กรุณาปักหมุด GPS</p>
-        )}
+        )} */}
         {!image && (
           <p style={{ color: "red", fontSize: "12px" }}>
             กรุณาถ่ายภาพประกอบงาน
           </p>
         )}
         <button
-          disabled={!gps || !image}
+          // disabled={!gps || !image}
+          // disabled={ !image}
           type="submit"
           className="btn-primary btn-success"
           style={{ width: "100%" }}
