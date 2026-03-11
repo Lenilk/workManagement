@@ -48,12 +48,12 @@ export default function Item({ t }: { t: Task }) {
         <>
           <br />
           <img
-            src={`import.meta.env.VITE_API_URL/api/picture/${t.imageName}`}
+            src={`${import.meta.env.VITE_API_URL}/api/picture/${t.imageName}`}
             alt="task"
             style={{ maxWidth: "100%", marginTop: "5px", maxHeight: "300px" }}
           />
           <a
-            href={`import.meta.env.VITE_API_URL/api/picture/${t.imageName}`}
+            href={`${import.meta.env.VITE_API_URL}/api/picture/${t.imageName}`}
             target="_blank"
             style={{ fontSize: "11px", color: "blue" }}
           >
