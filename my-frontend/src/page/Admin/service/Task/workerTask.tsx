@@ -12,6 +12,7 @@ interface IFormInput {
   workResult: string;
   status: string;
 }
+
 export default function WorkerTask({ t }: { t: Task }) {
   const [status, setStatus] = useState("completed");
   const {
@@ -26,9 +27,9 @@ export default function WorkerTask({ t }: { t: Task }) {
   const [workResult, setWorkResult] = useState("");
   const imageRest = register("image", { required: "กรุณาอัปโหลดรูปภาพ" });
   function setLocation() {
-    navigator.geolocation.getCurrentPosition((p) =>
-      setGps(`${p.coords.latitude},${p.coords.longitude}`),
-    );
+    navigator.geolocation.getCurrentPosition((p) => {
+      setGps(`${p.coords.latitude},${p.coords.longitude}`);
+    });
   }
   let formData = new FormData();
   function handlePhoto(event: ChangeEvent, t: any) {
@@ -50,7 +51,7 @@ export default function WorkerTask({ t }: { t: Task }) {
     //   gps: gps,
     //   form: formData,
     // });
-    if (!form.gps) {
+    if (!gps) {
       alert("กรุณาปักหมุด GPS ก่อนส่งงาน");
       return;
     }
@@ -59,11 +60,11 @@ export default function WorkerTask({ t }: { t: Task }) {
       return;
     }
     console.log("form");
-    console.log(form.image);
+    console.log(form);
     formData.append("id", `${t.id}`);
     formData.append("status", form.status);
     formData.append("workResult", form.workResult);
-    formData.append("gps", form.gps);
+    formData.append("gps", gps ?? "");
     formData.append("image", form.image[0]);
     console.log(formData);
     try {
@@ -122,9 +123,8 @@ export default function WorkerTask({ t }: { t: Task }) {
         }}
       >
         <input
-          {...register("gps", { required: true })}
           type="button"
-          onClick={() => setLocation()}
+          onClick={setLocation}
           value={`📍 ${gps ? "อัปเดตพิกัดแล้ว" : "ปักหมุด GPS"}`}
           className="btn-primary"
           style={{ background: "#f0f0f0", color: "#333", fontSize: "12px" }}
