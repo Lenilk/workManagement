@@ -1,0 +1,39 @@
+# Stage 1: Build stage
+FROM oven/bun:latest AS build
+WORKDIR /app
+
+# คัดลอกไฟล์จัดการ dependencies
+# COPY package.json bun.lockb ./
+COPY package.json ./
+# ติดตั้ง dependencies ทั้งหมด
+RUN bun install --frozen-lockfile
+
+# คัดลอกโค้ดทั้งหมด (รวมถึง .env และ src)
+COPY . .
+
+# สร้างไฟล์ production build (dist)
+# ตัวแปร VITE_API_URL ใน .env จะถูกฝังเข้าไปในไฟล์ JS ตอนขั้นตอนนี้
+# RUN bun  run build
+RUN bun --bun x vite build
+# Stage 2: Production stage
+FROM oven/bun:latest AS release
+WORKDIR /app
+
+# คัดลอกเฉพาะโฟลเดอร์ dist ที่ build เสร็จแล้ว
+COPY --from=build /app/dist ./dist
+COPY --from=build /app/package.json ./package.json
+
+COPY --from=build /app/node_modules ./node_modules
+
+# ตั้งค่า Environment สำหรับ Vite Preview
+ENV NODE_ENV=production
+# ติดตั้งเฉพาะ 'serve' หรือใช้ Bun ในการ serve ไฟล์ static
+# ในที่นี้เราจะใช้คำสั่ง bun เพื่อ serve โดยตรง
+# RUN bun install -g serve
+
+# เปิด Port ของ Vite (ปกติ build output มักจะรันที่ 5000 หรือ 4173)
+EXPOSE 5173
+
+# รันด้วย flag --bun ตามที่คุณต้องการ
+# ใช้ bun serve เพื่อให้บริการไฟล์ในโฟลเดอร์ dist
+CMD ["bun", "--bun", "run", "preview", "--host", "0.0.0.0","--port", "5173"]
