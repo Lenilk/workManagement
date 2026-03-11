@@ -64,7 +64,6 @@ export default function AdminIndexPage() {
     return;
   }
   async function fetchAllWorker() {
-    if (!isAdmin()) return [];
     try {
       let res = await fetch(`${import.meta.env.VITE_API_URL}/api/user/worker`, {
         method: "GET",
@@ -96,6 +95,7 @@ export default function AdminIndexPage() {
     mutationFn: (form: IFormInput) => createTask(form),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["pendingTasks"] });
+      queryClient.invalidateQueries({ queryKey: ["AllTasks"] });
     },
   });
   return (
