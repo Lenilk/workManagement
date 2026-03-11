@@ -64,22 +64,26 @@ export default function AdminIndexPage() {
     return;
   }
   async function fetchAllWorker() {
-    try {
-      let res = await fetch(`${import.meta.env.VITE_API_URL}/api/user/worker`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include",
-      });
-      let data = await res.json();
-      console.log(data);
-      return data;
-      // setTask(data);
-    } catch (e) {
-      console.error(e);
-      return [];
-    }
+    if (isAdmin())
+      try {
+        let res = await fetch(
+          `${import.meta.env.VITE_API_URL}/api/user/worker`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            credentials: "include",
+          },
+        );
+        let data = await res.json();
+        console.log(data);
+        return data;
+        // setTask(data);
+      } catch (e) {
+        console.error(e);
+        return [];
+      }
   }
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ["workers"],
@@ -101,10 +105,10 @@ export default function AdminIndexPage() {
   return (
     <div id="admin-page">
       <div className="header" style={{ background: " #333", color: "white" }}>
-        <h2>แผงควบคุมแอดมิน</h2>
+        <h2>{isAdmin() ? "แผงควบคุมแอดมิน" : "สร้างงานใหม่"}</h2>
       </div>
       <div className="card">
-        <h3>➕ มอบหมายงานใหม่</h3>
+        {isAdmin() && <h3>➕ มอบหมายงานใหม่</h3>}
         <form
           className="input-group"
           onSubmit={handleSubmit((form) => mutation.mutate(form))}
