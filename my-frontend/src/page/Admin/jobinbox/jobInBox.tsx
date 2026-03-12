@@ -33,11 +33,16 @@ export default function JobInBox({ t }: { t: Task }) {
   });
   return (
     <div className="card">
-      <h3>{t.title}</h3>
-      <p>{t.detail}</p>
-      <p>
-        <small>📍 {t.loc}</small>
-      </p>
+      <h3>
+        มอบงานเมื่อ:{" "}
+        {t.createdAt ? new Date(t.createdAt).toLocaleString() : "-"}
+      </h3>
+      <h3>ชื่อลูกค้า/เลขวงจร: {t.title}</h3>
+      <p>รายละเอียด: {t.detail}</p>
+      <p>สถานที่: {t.loc}</p>
+      <h3>
+        กำหนดการ: {t.deadlineAt ? new Date(t.deadlineAt).toDateString() : "-"}
+      </h3>
       <button
         className="btn-primary btn-success"
         style={{ width: "100%" }}

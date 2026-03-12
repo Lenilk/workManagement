@@ -48,7 +48,7 @@ export default function HistoryPage() {
   return (
     <div id="history-page">
       <div className="header" style={{ background: "#6c757d", color: "white" }}>
-        <h2>ประวัติงานและพิกัด</h2>
+        <h2>ประวัติงาน</h2>
       </div>
       <div className="card">
         <button

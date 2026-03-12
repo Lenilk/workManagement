@@ -105,15 +105,18 @@ export default function WorkerTask({ t }: { t: Task }) {
       onSubmit={handleSubmit((form) => mutation.mutate(form))}
     >
       <div style={{ display: "flex", justifyContent: "space-between" }}>
-        <small>ID: {t.id}</small>
+        <h2>ID: {t.id}</h2>
       </div>
-      <h2 style={{ margin: "8px 0" }}>{t.title}</h2>
-      <p style={{ fontSize: "14px", color: "#444" }}>
-        📍 สถานที่: {t.loc || "-"}
-      </p>
-      <p style={{ fontSize: "13px", color: "#666", margin: "5px 0" }}>
-        {t.detail}
-      </p>
+      <h3>
+        มอบงานเมื่อ:{" "}
+        {t.createdAt ? new Date(t.createdAt).toLocaleString() : "-"}
+      </h3>
+      <h3>ชื่อลูกค้า/เลขวงจร: {t.title}</h3>
+      <p>รายละเอียด: {t.detail}</p>
+      <p>สถานที่: {t.loc}</p>
+      <h3>
+        กำหนดการ: {t.deadlineAt ? new Date(t.deadlineAt).toDateString() : "-"}
+      </h3>
       <div
         style={{
           display: "grid",
